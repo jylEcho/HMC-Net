@@ -66,136 +66,139 @@ CSF-CNN attains 75.96% DSC and 61.23% Jaccard, demonstrating consistent cross-da
 
 Extensive experiments on two benchmark datasets, LiTS2017 and MPLL, demonstrate the superiority of our proposed method, which significantly outperforms existing state-of-the-art approaches.
 
-## Getting Started
 
-### Before Experiments：Create your conda environment
 
-We recommend using **conda** for a clean and reproducible environment.  
+🚀 Quick Start Guide
+Environment Setup
 
-1、environments:Linux 5.4.0
+To ensure reproducibility, we recommend using Conda for a clean Python environment.
 
-2、conda create -n liverseg python=3.8 -y
-conda activate liverseg
+Operating System: Linux 5.4.0
 
-3、Install Pytorch : pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 --index-url https://download.pytorch.org/whl/cu117
+Create the environment:
 
-4、Requirements:
-numpy==1.14.2
-torch==1.0.1.post2
-visdom==0.1.8.8
-pandas==0.23.3
-scipy==1.0.0
-tqdm==4.40.2
-scikit-image==0.13.1
-SimpleITK==1.0.1
-pydensecrf==1.0rc3
+conda create -n liverseg_env python=3.8 -y
+conda activate liverseg_env
 
-## 🏋️ Training Pipeline
 
-We provide a step-by-step guide to prepare data and train **OurMethod** for multi-phase liver tumor segmentation. 
+Install PyTorch (with CUDA 11.7 support):
 
-### 1️⃣ Dataset Splitting
+pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 --index-url https://download.pytorch.org/whl/cu117
 
-Split patients into **train / val / test** subsets:  
+
+Install dependencies:
+
+pip install numpy==1.14.2 pandas==0.23.3 scipy==1.0.0 tqdm==4.40.2
+pip install scikit-image==0.13.1 SimpleITK==1.0.1 pydensecrf==1.0rc3 visdom==0.1.8.8
+
+🏋️‍♂️ Data Processing and Training Pipeline
+
+This project focuses on multi-phase liver tumor segmentation. The workflow is as follows:
+
+1️⃣ Dataset Split
+
+Divide patients into training, validation, and testing subsets:
 
 python multi_phase/multi_phase/dataset_prepare/generate_patients_txt.py
 
-### 2️⃣ Liver Box Generation
+2️⃣ Liver Bounding Box Generation
 
-Generate liver bounding boxes to accelerate training and reduce background noise:
+Generate liver bounding boxes to improve training efficiency and reduce background noise:
 
 python multi_phase/multi_phase/dataset_prepare/generate_liverbox.py
 
-📦 Outputs: liver box annotations.
 
-### 3️⃣ Data Preprocessing
+📦 Output: liver ROI annotations.
 
-Convert raw volumes into 2D slices for training and testing:
+3️⃣ Data Preprocessing
 
-# Generate testing slices
+Convert 3D volumes into 2D slices for model training and evaluation:
+
+Generate testing slices:
 
 python multi_phase/multi_phase/dataset_prepare/rawdata_2D_test.py
 
-# Generate training slices
+
+Generate training slices:
 
 python multi_phase/multi_phase/dataset_prepare/rawdata_2D_train.py
 
-🖼️ Outputs saved in process_data/train/ and process_data/test/.
 
-### 4️⃣ Train/Test File Lists
+🖼️ Output folders: process_data/train/ and process_data/test/
 
-Generate .txt files for dataset indexing:
+4️⃣ Generate Training/Test Index Files
+
+Create .txt files listing the dataset for easy loading:
 
 python multi_phase/multi_phase/dataset_prepare/get_txt.py
 
-📂 Outputs:
+
+📂 Example outputs:
 
 multi_phase/multi_phase/lists/lists_liver/train.txt
 
 multi_phase/multi_phase/lists/lists_liver/test_vol.txt
 
-### 5️⃣ Start Training
+5️⃣ Training
 
-Use the provided training script:
+Launch training using the provided script:
 
-Use the provided training script, Inside train_sformer.sh, training is launched with:
-
-export CUDA_VISIBLE_DEVICES=
+export CUDA_VISIBLE_DEVICES=0,1,2
 cd ..
 python train.py \
   --n_gpu 3 \
-  --root_path /path to train/ \
-  --test_path /path to test/ \
-  --module /path to your model/ \
+  --root_path /path/to/train/ \
+  --test_path /path/to/test/ \
+  --module /path/to/model/ \
   --dataset Multiphase \
-  --eval_interval x # Test every few rounds \
+  --eval_interval 5 \
   --max_epochs 100 \
   --batch_size 8 \
   --model_name Fusion \
   --img_size 256 \
-  --base_lr 0.01 \
+  --base_lr 0.01
 
-⚙️ Hyperparameters Explained
 
---n_gpu: number of GPUs to use (e.g., 3 for multi-GPU training).
+Key parameters:
 
---root_path: training dataset path.
+--n_gpu: number of GPUs to use
 
---test_path: testing dataset path.
+--root_path: path to the training dataset
 
---module: network architecture (e.g., HAformerSpatialFrequency).
+--test_path: path to the testing dataset
 
---dataset: dataset type (here: Multiphase).
+--module: model architecture (e.g., HAformerSpatialFrequency)
 
---eval_interval: evaluate every N epochs.
+--dataset: dataset type (here: Multiphase)
 
---max_epochs: maximum number of training epochs (default 100).
+--eval_interval: evaluation frequency in epochs
 
---batch_size: training batch size (e.g., 8).
+--max_epochs: total training epochs
 
---model_name: name for saving checkpoints (default: Fusion).
+--batch_size: samples per batch
 
---img_size: input image size (default: 256 × 256).
+--model_name: checkpoint saving name
 
---base_lr: base learning rate (e.g., 0.01).
+--img_size: input image dimensions
 
-### 📊 Outputs
+--base_lr: base learning rate
 
-Training checkpoints and logs are saved in:
+📊 Training Outputs
+
+All outputs are saved to:
 
 multi_phase/multi_phase/model_out/
 
-Results include:
 
-✔️ Best model weights
+Included:
 
-✔️ Training/validation curves
+Best model weights
 
-✔️ Evaluation metrics (DSC, Jaccard, HD95, ASSD)
+Training and validation curves
 
-✨ After training, you can run evaluation and visualize results directly from the saved models.
+Evaluation metrics: DSC, Jaccard, HD95, ASSD
 
-
+After training, the saved models can be directly used for inference, evaluation, and visualization.
 
 
 
