@@ -68,49 +68,49 @@ Extensive experiments on two benchmark datasets, LiTS2017 and MPLL, demonstrate 
 
 
 
-🚀 ## Quick Start Guide
-Environment Setup
+## 🚀  Quick Start Guide
+### Environment Setup
 
 To ensure reproducibility, we recommend using Conda for a clean Python environment.
 
 Operating System: Linux 5.4.0
 
-Create the environment:
+### Create the environment:
 
 conda create -n liverseg_env python=3.8 -y
 conda activate liverseg_env
 
 
-Install PyTorch (with CUDA 11.7 support):
+### Install PyTorch (with CUDA 11.7 support):
 
 pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 --index-url https://download.pytorch.org/whl/cu117
 
 
-Install dependencies:
+### Install dependencies:
 
 pip install numpy==1.14.2 pandas==0.23.3 scipy==1.0.0 tqdm==4.40.2
 pip install scikit-image==0.13.1 SimpleITK==1.0.1 pydensecrf==1.0rc3 visdom==0.1.8.8
 
-🏋️‍♂️ Data Processing and Training Pipeline
+## 🏋️‍♂️ Data Processing and Training Pipeline
 
 This project focuses on multi-phase liver tumor segmentation. The workflow is as follows:
 
-1️⃣ Dataset Split
+### 1️⃣ Dataset Split
 
 Divide patients into training, validation, and testing subsets:
 
 python multi_phase/multi_phase/dataset_prepare/generate_patients_txt.py
 
-2️⃣ Liver Bounding Box Generation
+### 2️⃣ Liver Bounding Box Generation
 
 Generate liver bounding boxes to improve training efficiency and reduce background noise:
 
 python multi_phase/multi_phase/dataset_prepare/generate_liverbox.py
 
 
-📦 Output: liver ROI annotations.
+## 📦 Output: liver ROI annotations.
 
-3️⃣ Data Preprocessing
+### 3️⃣ Data Preprocessing
 
 Convert 3D volumes into 2D slices for model training and evaluation:
 
@@ -124,22 +124,22 @@ Generate training slices:
 python multi_phase/multi_phase/dataset_prepare/rawdata_2D_train.py
 
 
-🖼️ Output folders: process_data/train/ and process_data/test/
+## 🖼️ Output folders: process_data/train/ and process_data/test/
 
-4️⃣ Generate Training/Test Index Files
+### 4️⃣ Generate Training/Test Index Files
 
 Create .txt files listing the dataset for easy loading:
 
 python multi_phase/multi_phase/dataset_prepare/get_txt.py
 
 
-📂 Example outputs:
+## 📂 Example outputs:
 
 multi_phase/multi_phase/lists/lists_liver/train.txt
 
 multi_phase/multi_phase/lists/lists_liver/test_vol.txt
 
-5️⃣ Training
+### 5️⃣ Training
 
 Launch training using the provided script:
 
@@ -159,7 +159,7 @@ python train.py \
   --base_lr 0.01
 
 
-Key parameters:
+### Key parameters:
 
 --n_gpu: number of GPUs to use
 
@@ -183,7 +183,7 @@ Key parameters:
 
 --base_lr: base learning rate
 
-📊 Training Outputs
+## 📊 Training Outputs
 
 All outputs are saved to:
 
