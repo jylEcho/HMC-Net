@@ -1,8 +1,6 @@
 # HMC-Net
 
-<center>
-  <img src="https://github.com/jylEcho/HMC-Net/blob/main/images/V11.png" width="800" alt="">
-</center>
+
 
 
 
@@ -46,7 +44,7 @@ These phases are complementary, making multi-phase fusion a powerful strategy fo
 ## ✨ Framework
 
 <center>
-  <img src="https://github.com/jylEcho/CSF-Net-plus-plus/blob/main/images/V10.png" width="800" alt="">
+  <img src="https://github.com/jylEcho/HMC-Net/blob/main/images/V11.png" width="800" alt="">
 </center>
 
 
