@@ -108,7 +108,7 @@ Generate liver bounding boxes to improve training efficiency and reduce backgrou
 python multi_phase/multi_phase/dataset_prepare/generate_liverbox.py
 
 
-## 📦 Output: liver ROI annotations.
+📦 Output: liver ROI annotations.
 
 ### 3️⃣ Data Preprocessing
 
@@ -124,7 +124,7 @@ Generate training slices:
 python multi_phase/multi_phase/dataset_prepare/rawdata_2D_train.py
 
 
-## 🖼️ Output folders: process_data/train/ and process_data/test/
+🖼️ Output folders: process_data/train/ and process_data/test/
 
 ### 4️⃣ Generate Training/Test Index Files
 
@@ -133,7 +133,7 @@ Create .txt files listing the dataset for easy loading:
 python multi_phase/multi_phase/dataset_prepare/get_txt.py
 
 
-## 📂 Example outputs:
+📂 Example outputs:
 
 multi_phase/multi_phase/lists/lists_liver/train.txt
 
