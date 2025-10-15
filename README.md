@@ -1,7 +1,11 @@
 # HMC-Net
 
 
+## ✨ Framework
 
+<center>
+  <img src="https://github.com/jylEcho/HMC-Net/blob/main/images/V11.png" width="800" alt="">
+</center>
 
 
 ## Overview
@@ -40,13 +44,6 @@ These phases are complementary, making multi-phase fusion a powerful strategy fo
 - **Decision-level fusion:** ensemble of outputs, but lacks inter-phase guidance  
 
 ➡️ A key drawback: they treat all phases equally, ignoring **clinical hierarchy (PV > ART > DL)**.  
-
-## ✨ Framework
-
-<center>
-  <img src="https://github.com/jylEcho/HMC-Net/blob/main/images/V11.png" width="800" alt="">
-</center>
-
 
 ## Our Contributions
 
